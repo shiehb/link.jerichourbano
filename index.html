@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jericho Urbano</title>
+  <!-- Preload local font for faster text rendering -->
+  <link rel="preload" href="files/fonts/departure-mono.woff" as="font" type="font/woff" crossorigin>
+
+  <!-- Critical CSS (inlined for faster first paint) -->
+  <style>
+    body{font-family:'Departure Mono',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,monospace;background-color:#ffffff;color:#f4ebeb;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:20px}
+    .card-container{width:100%;max-width:580px;background-color:#141414;padding:48px 32px;text-align:center;display:flex;flex-direction:column;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,0.08);min-height:100vh;gap:24px}
+    .profile-img{width:120px;height:120px;border-radius:50%;object-fit:cover;margin-bottom:12px}
+    .profile-name{color:#f4ebeb;font-size:2.5rem;font-weight:700;margin-bottom:8px}
+    .links-container{width:100%;display:flex;flex-direction:column;gap:16px}
+  </style>
+
+  <!-- Load remaining CSS asynchronously to avoid render-blocking -->
+  <link rel="stylesheet" href="files/style.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="files/style.css"></noscript>
+
+  <!-- Load Font Awesome asynchronously (non-blocking) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+</head>
+
+<body>
+
+  <!-- Main Content Card Container -->
+  <main class="card-container">
+
+    <!-- Profile Section -->
+    <header class="profile">
+      <img src="files/img/profile.jpg" alt="Jericho Urbano" class="profile-img" />
+      <h1 class="profile-name">Jericho Urbano</h1>
+      <p class="profile-bio">Photography, code, multimedia stuff.</p>
+    </header>
+
+    <!-- Main Links Container -->
+    <div class="links-container">
+      <div class="link-card">
+        <a href="https://github.com/shiehb" target="_blank" rel="noopener noreferrer" class="link-card-text">WEBSITE</a>
+        <button class="menu-dots" aria-label="Options">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </button>
+      </div>
+      <div class="link-card">
+        <a href="https://github.com/shiehb" target="_blank" rel="noopener noreferrer" class="link-card-text">RESUME</a>
+        <button class="menu-dots" aria-label="Options">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </button>
+      </div>
+      <div class="link-card">
+        <a href="https://github.com/shiehb" target="_blank" rel="noopener noreferrer" class="link-card-text">PROJECTS</a>
+        <button class="menu-dots" aria-label="Options">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </button>
+      </div>
+    </div>
+
+        <!-- Social Media Icons Row -->
+    <div class="social-icons">
+      <a href="https://facebook.com/echong.urbano" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+      <a href="https://www.instagram.com/echo_.ng" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/jericho-urbano-1a886a406/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://github.com/shiehb" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="mailto:jerichourbano.01.01.04@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+      <a href="tel:+639566986556" aria-label="Phone"><i class="fa-solid fa-phone"></i></a>
+    </div>
+
+  </main>
+
+</body>
+
+</html>

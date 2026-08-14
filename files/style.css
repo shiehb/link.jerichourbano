@@ -52,6 +52,9 @@ body {
 .card-container {
   width: 100%;
   max-width: 480px;
+  /* allow the card to grow naturally and avoid internal scrolling */
+  max-height: none;
+  overflow: visible;
   background-color: var(--bg-card);
   padding: 40px 28px;
   text-align: center;
@@ -60,6 +63,7 @@ body {
   align-items: center;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  min-height: calc(100vh - 40px);
   gap: 20px;
 }
 
@@ -173,7 +177,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   margin-top: 12px;
   flex-wrap: wrap;
 }

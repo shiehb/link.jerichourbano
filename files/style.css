@@ -34,7 +34,7 @@
   padding: 0;
 }
 
-/* Base / Body: Default Mobile uses card background color */
+/* Base / Body: Default Mobile aligns content to top */
 body {
   font-family: 'Departure Mono', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
   background-color: var(--bg-card);
@@ -42,34 +42,35 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* Aligns to top on mobile */
 }
 
 /* -----------------------------
    Layout
    ----------------------------- */
 
-/* Mobile Default: Full-screen feel, no card box/shadow, no forced min-height */
+/* Mobile Default: Full-screen feel, aligned top, no card box/shadow/forced height */
 .card-container {
   width: 100%;
   max-width: 480px;
   max-height: none;
   overflow: visible;
   background-color: var(--bg-card);
-  padding: 24px 16px;
+  padding: 32px 16px 24px; /* Slightly more top padding for space from top edge */
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-shadow: none;
-  min-height: auto; /* No forced min-height on mobile */
+  min-height: auto;
   gap: 20px;
 }
 
-/* Tablet & Desktop (768px and wider): Outer page gets darker bg; card gets original height & shadow */
+/* Tablet & Desktop (768px and wider): Center card vertically with card styles */
 @media (min-width: 768px) {
   body {
     background-color: var(--bg-page);
+    align-items: center; /* Centers card vertically on larger screens */
   }
 
   .card-container {

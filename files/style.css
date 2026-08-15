@@ -49,7 +49,7 @@ body {
    Layout
    ----------------------------- */
 
-/* Mobile Default: Full-screen feel matching card background color, no shadow */
+/* Mobile Default: Full-screen feel, no card box/shadow, no forced min-height */
 .card-container {
   width: 100%;
   max-width: 480px;
@@ -62,7 +62,7 @@ body {
   flex-direction: column;
   align-items: center;
   box-shadow: none;
-  min-height: 100vh;
+  min-height: auto; /* No forced min-height on mobile */
   gap: 20px;
 }
 

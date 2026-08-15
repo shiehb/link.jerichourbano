@@ -5,23 +5,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jericho Urbano</title>
+
   <!-- Preload local font for faster text rendering -->
   <link rel="preload" href="files/fonts/departure-mono.woff" as="font" type="font/woff" crossorigin>
 
-  <!-- Critical CSS (inlined for faster first paint) -->
-  <style>
-    body{font-family:'Departure Mono',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,monospace;background-color:#ffffff;color:#f4ebeb;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:20px}
-    .card-container{width:100%;max-width:580px;background-color:#141414;padding:48px 32px;text-align:center;display:flex;flex-direction:column;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,0.08);min-height:100vh;gap:24px}
-    .profile-img{width:120px;height:120px;border-radius:50%;object-fit:cover;margin-bottom:12px}
-    .profile-name{color:#f4ebeb;font-size:2.5rem;font-weight:700;margin-bottom:8px}
-    .links-container{width:100%;display:flex;flex-direction:column;gap:16px}
-  </style>
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="files/style.css">
 
-  <!-- Load remaining CSS asynchronously to avoid render-blocking -->
-  <link rel="stylesheet" href="files/style.css" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="files/style.css"></noscript>
-
-  <!-- Load Font Awesome asynchronously (non-blocking) -->
+  <!-- Load Font Awesome asynchronously -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 </head>
@@ -34,7 +25,7 @@
     <!-- Profile Section -->
     <header class="profile">
       <img src="files/img/profile.jpg" alt="Jericho Urbano" class="profile-img" />
-      <h1 class="profile-name">JΣRICHŐ UЯBANO</h1>
+      <h1 class="profile-name" id="profileName"></h1>
       <p class="profile-bio">@echo_.ng</p>
     </header>
 
@@ -60,7 +51,7 @@
       </div>
     </div>
 
-        <!-- Social Media Icons Row -->
+    <!-- Social Media Icons Row -->
     <div class="social-icons">
       <a href="https://facebook.com/echong.urbano" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
       <a href="https://www.linkedin.com/in/jericho-urbano-1a886a406/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
@@ -70,6 +61,94 @@
     </div>
 
   </main>
+
+  <!-- Decipher Intro + Glitch Animation Script -->
+  <script>
+    const profileElement = document.getElementById('profileName');
+    const baseText = "JERICHO URBANO";
+    
+    // Characters used during the random deciphering intro phase
+    const cipherChars = "!@#$%^&*()_+-=[]{}|;:,.<>?/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    // Subtle leet/glyph map for the ongoing 2000ms glitch effect
+    const charMap = {
+      'E': ['3', 'Σ', '€'],
+      'R': ['Я'],
+      'I': ['1'],
+      'C': ['<'],
+      'H': ['#', 'Ħ'],
+      'O': ['0', 'Ő', 'Ø'],
+      'A': ['4', '@', 'Δ'],
+      'N': ['И', 'Ŋ']
+    };
+
+    // --- PHASE 1: DECIPHER INTRO ANIMATION ---
+    let iteration = 0;
+    const totalSteps = baseText.length * 3; // Controls decipher speed
+
+    const decipherInterval = setInterval(() => {
+      const output = baseText
+        .split('')
+        .map((char, index) => {
+          if (char === ' ') return ' ';
+          
+          // Lock in the real character from left to right as iteration increases
+          if (index < iteration / 3) {
+            return char;
+          }
+          
+          // Show random scrambling cipher characters for remaining positions
+          return cipherChars[Math.floor(Math.random() * cipherChars.length)];
+        })
+        .join('');
+
+      profileElement.textContent = output;
+
+      iteration++;
+
+      // When fully deciphered, stop intro and start the 2000ms glitch cycle
+      if (iteration > totalSteps) {
+        clearInterval(decipherInterval);
+        profileElement.textContent = baseText;
+        startGlitchLoop();
+      }
+    }, 40); // Scrambles smoothly at 40ms per frame
+
+    // --- PHASE 2: ONGOING 2000MS GLITCH LOOP ---
+    function startGlitchLoop() {
+      setInterval(() => {
+        // 1. Find letter positions eligible for glyph replacements
+        const eligibleIndices = [];
+        baseText.split('').forEach((char, index) => {
+          if (charMap[char]) {
+            eligibleIndices.push(index);
+          }
+        });
+
+        // 2. Select 1 or 2 characters randomly
+        const countToChange = Math.random() < 0.5 ? 1 : 2;
+        const shuffledIndices = [...eligibleIndices].sort(() => 0.5 - Math.random());
+        const selectedIndices = shuffledIndices.slice(0, countToChange);
+
+        // 3. Swap selected characters with glyph variations
+        const glitchedChars = baseText.split('');
+        selectedIndices.forEach(index => {
+          const originalChar = baseText[index];
+          const options = charMap[originalChar];
+          glitchedChars[index] = options[Math.floor(Math.random() * options.length)];
+        });
+
+        // 4. Trigger glitch
+        profileElement.textContent = glitchedChars.join('');
+
+        // 5. Revert back to base name after 200ms
+        setTimeout(() => {
+          profileElement.textContent = baseText;
+        }, 800);
+
+      }, 2500);
+    }
+  </script>
 
 </body>
 

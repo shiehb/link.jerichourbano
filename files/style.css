@@ -3,7 +3,7 @@
    - CSS variables
    - Font declarations
    - Reset & base styles
-   - Layout
+   - Layout & Media Queries
    - Components
    - Utilities
    ----------------------------- */
@@ -34,10 +34,10 @@
   padding: 0;
 }
 
-/* Base / Body */
+/* Base / Body: Default Mobile uses card background color */
 body {
   font-family: 'Departure Mono', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
-  background-color: var(--bg-page);
+  background-color: var(--bg-card);
   color: var(--text-light);
   min-height: 100vh;
   display: flex;
@@ -48,28 +48,43 @@ body {
 /* -----------------------------
    Layout
    ----------------------------- */
+
+/* Mobile Default: Full-screen feel matching card background color, no shadow */
 .card-container {
   width: 100%;
   max-width: 480px;
-  /* allow the card to grow naturally and avoid internal scrolling */
   max-height: none;
   overflow: visible;
   background-color: var(--bg-card);
-  padding: 40px 28px;
+  padding: 24px 16px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-  min-height: calc(100vh - 40px);
+  box-shadow: none;
+  min-height: 100vh;
   gap: 20px;
+}
+
+/* Tablet & Desktop (768px and wider): Outer page gets darker bg; card gets original height & shadow */
+@media (min-width: 768px) {
+  body {
+    background-color: var(--bg-page);
+  }
+
+  .card-container {
+    padding: 40px 28px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    min-height: calc(100vh - 40px);
+    border-radius: 12px;
+  }
 }
 
 /* -----------------------------
    Components: Profile
    ----------------------------- */
 .profile {
-  margin-top: 8px;
+  margin-top: 12px;
   margin-bottom: 8px;
   display: flex;
   flex-direction: column;
@@ -77,12 +92,13 @@ body {
 }
 
 .profile-img {
-  width: 96px;
-  height: 96px;
+  width: 128px;
+  height: 128px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .profile-name {
@@ -91,6 +107,8 @@ body {
   font-weight: 700;
   letter-spacing: -0.5px;
   margin-bottom: 6px;
+  font-family: 'Departure Mono', monospace;
+  white-space: nowrap;
 }
 
 .profile-bio {

@@ -34,7 +34,7 @@
   padding: 0;
 }
 
-/* Base / Body: Default Mobile aligns content to top */
+/* Base / Body */
 body {
   font-family: 'Departure Mono', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
   background-color: var(--bg-card);
@@ -42,21 +42,18 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Aligns to top on mobile */
+  align-items: flex-start;
 }
 
 /* -----------------------------
    Layout
    ----------------------------- */
-
-/* Mobile Default: Full-screen feel, aligned top, no card box/shadow/forced height */
 .card-container {
   width: 100%;
   max-width: 480px;
-  max-height: none;
-  overflow: visible;
+  overflow: hidden;
   background-color: var(--bg-card);
-  padding: 32px 16px 24px; /* Slightly more top padding for space from top edge */
+  padding: 32px 16px 24px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -66,11 +63,10 @@ body {
   gap: 20px;
 }
 
-/* Tablet & Desktop (768px and wider): Center card vertically with card styles */
 @media (min-width: 768px) {
   body {
     background-color: var(--bg-page);
-    align-items: center; /* Centers card vertically on larger screens */
+    align-items: center;
   }
 
   .card-container {
@@ -82,59 +78,100 @@ body {
 }
 
 /* -----------------------------
-   Components: Profile
+   Components: Profile Hero & Links inside
    ----------------------------- */
 .profile {
-  margin-top: 12px;
-  margin-bottom: 8px;
+  width: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+.profile-hero {
+  width: calc(100% + 32px);
+  aspect-ratio: 2 / 3;
+  margin: -32px -16px 0;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-card);
+  border-radius: 12px 12px 0 0;
+}
+
+/* Dark bottom gradient overlay */
+.profile-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    var(--bg-card) 0%,
+    rgba(34, 34, 34, 0.9) 30%,
+    rgba(34, 34, 34, 0.4) 60%,
+    rgba(34, 34, 34, 0) 100%
+  );
+  z-index: 1;
+}
+
 .profile-img {
-  width: 128px;
-  height: 128px;
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  margin-bottom: 20px;
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  object-position: center top;
+  display: block;
+  filter: saturate(1.05) contrast(1.05);
+}
+
+/* Content Container resting on top of hero bottom gradient */
+.profile-content {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 8px;
 }
 
 .profile-name {
   color: #ffffff;
-  font-size: 1.75rem;
+  font-size: 1.65rem;
   font-weight: 700;
   letter-spacing: -0.5px;
-  margin-bottom: 6px;
   font-family: 'Departure Mono', monospace;
   white-space: nowrap;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
 }
 
 .profile-bio {
   font-size: 0.95rem;
   line-height: 1.4;
   color: var(--text-light);
-  max-width: 360px;
-  margin: 0 auto;
+  margin-top: 4px;
+  margin-bottom: 20px;
+  text-align: center;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
 }
 
 /* -----------------------------
-   Components: Links
+   Components: Links (Inside Profile)
    ----------------------------- */
 .links-container {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: var(--gap);
-  margin-top: 8px;
 }
 
 .link-card {
   position: relative;
   width: 100%;
-  background-color: transparent;
+  background-color: rgba(34, 34, 34, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1.5px solid var(--text-light);
   padding: 14px 20px;
   display: flex;
@@ -148,7 +185,7 @@ body {
 .link-card:hover {
   background-color: var(--text-light);
   transform: translateY(-2px);
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .link-card-text {
@@ -195,7 +232,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 6px;
-  margin-top: 12px;
+  margin-top: 8px;
   flex-wrap: wrap;
 }
 

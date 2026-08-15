@@ -22,34 +22,40 @@
   <!-- Main Content Card Container -->
   <main class="card-container">
 
-    <!-- Profile Section -->
+    <!-- Profile Hero Section with Name, Bio, and Links Inside -->
     <header class="profile">
-      <img src="files/img/profile.jpg" alt="Jericho Urbano" class="profile-img" />
-      <h1 class="profile-name" id="profileName"></h1>
-      <p class="profile-bio">@echo_.ng</p>
-    </header>
+      <div class="profile-hero">
+        <img src="files/img/profile.jpg" alt="Jericho Urbano" class="profile-img" />
+      </div>
 
-    <!-- Main Links Container -->
-    <div class="links-container">
-      <div class="link-card">
-        <a href="/404" class="link-card-text" aria-disabled="true" onclick="event.preventDefault(); return false;">WEBSITE</a>
-        <button class="menu-dots" aria-label="Options">
-          <i class="fa-solid fa-ellipsis-vertical"></i>
-        </button>
+      <!-- Content Overlay Group -->
+      <div class="profile-content">
+        <h1 class="profile-name" id="profileName"></h1>
+        <p class="profile-bio">@echo_.ng</p>
+
+        <!-- Main Links Nested Inside Profile -->
+        <div class="links-container">
+          <div class="link-card">
+            <a href="/404" class="link-card-text" aria-disabled="true" onclick="event.preventDefault(); return false;">WEBSITE</a>
+            <button class="menu-dots" aria-label="Options">
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+          </div>
+          <div class="link-card">
+            <a href="files/resume.pdf" target="_blank" rel="noopener noreferrer" class="link-card-text">RESUME</a>
+            <button class="menu-dots" aria-label="Options">
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+          </div>
+          <div class="link-card">
+            <a href="https://drive.google.com/drive/folders/1WlcmEUS_PQsQCVBwuV0vjGwM2-NTnrHr?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-card-text">PROJECTS</a>
+            <button class="menu-dots" aria-label="Options">
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="link-card">
-        <a href="files/resume.pdf" target="_blank" rel="noopener noreferrer" class="link-card-text">RESUME</a>
-        <button class="menu-dots" aria-label="Options">
-          <i class="fa-solid fa-ellipsis-vertical"></i>
-        </button>
-      </div>
-      <div class="link-card">
-        <a href="https://drive.google.com/drive/folders/1WlcmEUS_PQsQCVBwuV0vjGwM2-NTnrHr?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-card-text">PROJECTS</a>
-        <button class="menu-dots" aria-label="Options">
-          <i class="fa-solid fa-ellipsis-vertical"></i>
-        </button>
-      </div>
-    </div>
+    </header>
 
     <!-- Social Media Icons Row -->
     <div class="social-icons">
@@ -71,7 +77,7 @@
     // Characters used during the random deciphering intro phase
     const cipherChars = "!@#$%^&*()_+-=[]{}|;:,.<>?/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    // Subtle leet/glyph map for the ongoing 2000ms glitch effect
+    // Subtle leet/glyph map for the ongoing glitch effect
     const charMap = {
       'E': ['3', 'Σ', '€'],
       'R': ['Я'],
@@ -85,20 +91,16 @@
 
     // --- PHASE 1: DECIPHER INTRO ANIMATION ---
     let iteration = 0;
-    const totalSteps = baseText.length * 3; // Controls decipher speed
+    const totalSteps = baseText.length * 3;
 
     const decipherInterval = setInterval(() => {
       const output = baseText
         .split('')
         .map((char, index) => {
           if (char === ' ') return ' ';
-          
-          // Lock in the real character from left to right as iteration increases
           if (index < iteration / 3) {
             return char;
           }
-          
-          // Show random scrambling cipher characters for remaining positions
           return cipherChars[Math.floor(Math.random() * cipherChars.length)];
         })
         .join('');
@@ -107,18 +109,16 @@
 
       iteration++;
 
-      // When fully deciphered, stop intro and start the 2000ms glitch cycle
       if (iteration > totalSteps) {
         clearInterval(decipherInterval);
         profileElement.textContent = baseText;
         startGlitchLoop();
       }
-    }, 40); // Scrambles smoothly at 40ms per frame
+    }, 40);
 
-    // --- PHASE 2: ONGOING 2000MS GLITCH LOOP ---
+    // --- PHASE 2: ONGOING GLITCH LOOP ---
     function startGlitchLoop() {
       setInterval(() => {
-        // 1. Find letter positions eligible for glyph replacements
         const eligibleIndices = [];
         baseText.split('').forEach((char, index) => {
           if (charMap[char]) {
@@ -126,12 +126,10 @@
           }
         });
 
-        // 2. Select 1 or 2 characters randomly
         const countToChange = Math.random() < 0.5 ? 1 : 2;
         const shuffledIndices = [...eligibleIndices].sort(() => 0.5 - Math.random());
         const selectedIndices = shuffledIndices.slice(0, countToChange);
 
-        // 3. Swap selected characters with glyph variations
         const glitchedChars = baseText.split('');
         selectedIndices.forEach(index => {
           const originalChar = baseText[index];
@@ -139,10 +137,8 @@
           glitchedChars[index] = options[Math.floor(Math.random() * options.length)];
         });
 
-        // 4. Trigger glitch
         profileElement.textContent = glitchedChars.join('');
 
-        // 5. Revert back to base name after 200ms
         setTimeout(() => {
           profileElement.textContent = baseText;
         }, 800);
